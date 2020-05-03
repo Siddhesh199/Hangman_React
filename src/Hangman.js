@@ -9,10 +9,9 @@ import img5 from "./5.jpg";
 import img6 from "./6.jpg";
 
 class Hangman extends Component {
-
   static defaultProps = {
     maxWrong: 6,
-    images: [img0, img1, img2, img3, img4, img5, img6]
+    images: [img0, img1, img2, img3, img4, img5, img6],
   };
 
   constructor(props) {
@@ -21,24 +20,22 @@ class Hangman extends Component {
     this.handleGuess = this.handleGuess.bind(this);
   }
 
-  
   guessedWord() {
     return this.state.answer
       .split("")
-      .map(ltr => (this.state.guessed.has(ltr) ? ltr : "_"));
+      .map((ltr) => (this.state.guessed.has(ltr) ? ltr : "_"));
   }
 
- 
   handleGuess(evt) {
     let ltr = evt.target.value;
-    this.setState(st => ({
+    this.setState((st) => ({
       guessed: st.guessed.add(ltr),
-      nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1)
+      nWrong: st.nWrong + (st.answer.includes(ltr) ? 0 : 1),
     }));
   }
 
   generateButtons() {
-    return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
+    return "abcdefghijklmnopqrstuvwxyz".split("").map((ltr) => (
       <button
         key={ltr}
         value={ltr}
@@ -52,11 +49,12 @@ class Hangman extends Component {
 
   render() {
     return (
-      <div className='Hangman'>
+      <div className="Hangman">
         <h1>Hangman</h1>
         <img src={this.props.images[this.state.nWrong]} />
-        <p className='Hangman-word'>{this.guessedWord()}</p>
-        <p className='Hangman-btns'>{this.generateButtons()}</p>
+        <p>Guessed Wrong: {this.state.nWrong}</p>
+        <p className="Hangman-word">{this.guessedWord()}</p>
+        <p className="Hangman-btns">{this.generateButtons()}</p>
       </div>
     );
   }
